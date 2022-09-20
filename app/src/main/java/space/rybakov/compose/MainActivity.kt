@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,12 +14,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import space.rybakov.compose.ui.theme.ComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MessageCard(Message("Android", "Jetpack Compose"))
+            ComposeTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    MessageCard(Message("Android", "Jetpack Compose"))
+                }
+            }
         }
     }
 }
@@ -32,7 +38,7 @@ fun MessageCard(msg: Message) {
             painter = painterResource(id = R.drawable.profile_picture),
             contentDescription = "Contact profile picture",
             modifier = Modifier
-                .size(40.dp)
+                .size(80.dp)
                 .clip(CircleShape)
         )
 
@@ -49,7 +55,11 @@ fun MessageCard(msg: Message) {
 @Preview
 @Composable
 fun PreviewMessageCard() {
-    MessageCard(
-        msg = Message("Colleague", "Hey, take a look at Jetpack Compose, it's great!")
-    )
+    ComposeTheme {
+        Surface {
+            MessageCard(
+                msg = Message("Colleague", "Hey, take a look at Jetpack Compose, it's great!")
+            )
+        }
+    }
 }
